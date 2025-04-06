@@ -14,6 +14,7 @@ Options:
   -o,--out=<output>         Output image (or extracted file)
 """
 
+import sys
 import cv2
 import docopt
 import numpy as np
@@ -170,7 +171,8 @@ class LSBSteg():
 def main():
     args = docopt.docopt(__doc__, version="0.2")
     in_f = args["--in"]
-    out_f = args["--out"]
+    if args["--out"]:
+        out_f = args["--out"]
     in_img = cv2.imread(in_f)
     steg = LSBSteg(in_img)
     lossy_formats = ["jpeg", "jpg"]
@@ -181,16 +183,31 @@ def main():
         if out_ext in lossy_formats:
             out_f = out_f + ".png"
             print("Output file changed to ", out_f)
-
-        data = open(args["--file"], "rb").read()
+        if args["--file"]:
+            data = open(args["--file"], "rb").read()
+        else:
+            data = "\n".join(sys.stdin.readlines())
         res = steg.encode_binary(data)
         cv2.imwrite(out_f, res)
 
     elif args["decode"]:
         raw = steg.decode_binary()
-        with open(out_f, "wb") as f:
-            f.write(raw)
+        try:
+            txt = raw.decode('utf-8', errors='strict')
+        except Exception as e:
+            print("Raw content is not decodable, not writing to stdout.")
+            txt = ""
 
+        if isinstance(txt, str) and len(txt)>0:
+            if args["--out"]:
+                with open(out_f, "wb") as f:
+                    f.write(txt)
+            else:
+                print(txt)
+        else:
+          if args["--out"]:
+              with open(out_f, "wb") as f:
+                  f.write(txt)
 
 if __name__=="__main__":
     main()
