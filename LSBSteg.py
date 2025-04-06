@@ -3,7 +3,7 @@
 """LSBSteg.py
 
 Usage:
-  LSBSteg.py encode -i <input> -o <output> -f [file]
+  LSBSteg.py encode -i <input> -o <output> [-f file]
   LSBSteg.py decode -i <input> -o [output]
 
 Options:
