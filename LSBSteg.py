@@ -3,15 +3,15 @@
 """LSBSteg.py
 
 Usage:
-  LSBSteg.py encode -i <input> -o <output> -f <file>
-  LSBSteg.py decode -i <input> -o <output>
+  LSBSteg.py encode -i <input> -o <output> -f [file]
+  LSBSteg.py decode -i <input> -o [output]
 
 Options:
   -h, --help                Show this help
   --version                 Show the version
-  -f,--file=<file>          File to hide
+  -f,--file=[file]          File to hide
   -i,--in=<input>           Input image (carrier)
-  -o,--out=<output>         Output image (or extracted file)
+  -o,--out=[output]         Output image (or extracted file)
 """
 
 import sys
