@@ -36,8 +36,8 @@ Usage
 LSBSteg.py
 
 Usage:
-  LSBSteg.py encode -i <input> -o <output> -f <file>
-  LSBSteg.py decode -i <input> -o <output>
+  LSBSteg.py encode -i <input> -o <output> [-f <file>]
+  LSBSteg.py decode -i <input> [-o <output>]
 
 Options:
   -h, --help                Show this help
@@ -47,6 +47,7 @@ Options:
   -o,--out=<output>         Output image (or extracted file)
 ```
 
+If no -f argument is provided while encoding, or no -o argument is provided while decoding, the program will take input from stdin, and output to stdout.
 
 Python module
 -------------
